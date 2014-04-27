@@ -22,7 +22,7 @@ public class exitguild extends task {
 				.nearest().poll();
 		if (ctx.movement.distance(door.tile(), ctx.players.local().tile()) < 2) {
 
-			if ((door.inViewport())) {
+			if ((door.inViewport()) && door.valid()) {
 				door.interact("open");
 
 				Condition.wait(new Callable<Boolean>() {

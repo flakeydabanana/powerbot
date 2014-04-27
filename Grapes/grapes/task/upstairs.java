@@ -18,7 +18,7 @@ public class upstairs extends task {
 	@Override
 	public void execute() {
 		GameObject stair = ctx.objects.select().id(constants.doorstair.stair3Ids).nearest().poll();;
-		if (stair.inViewport() && ctx.players.local().tile().floor() == 0) {
+		if (stair.inViewport() && stair.valid() && ctx.players.local().tile().floor() == 0) {
 			stair.interact("Climb-up");
 			System.out.print("Going up stairs");
 			Condition.wait(new Callable<Boolean>() {

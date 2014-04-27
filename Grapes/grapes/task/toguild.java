@@ -40,7 +40,7 @@ public class toguild extends task {
 		GameObject door = ctx.objects.select().id(constants.doorstair.doorIds)
 				.nearest().poll();
 
-		if ((door.inViewport())
+		if ((door.inViewport() && door.valid())
 				&& !tiles.GUILD_AREA.contains(ctx.players.local())) {
 			door.interact("open");
 			Condition.wait(new Callable<Boolean>() {

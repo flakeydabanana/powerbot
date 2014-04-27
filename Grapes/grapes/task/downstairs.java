@@ -17,7 +17,7 @@ public class downstairs extends task {
 	public void execute() {
 		GameObject stair = ctx.objects.select()
 				.id(constants.doorstair.stairIds).nearest().poll();
-		if (stair.inViewport() && ctx.players.local().tile().floor() == 2) {
+		if (stair.inViewport() && stair.valid() && ctx.players.local().tile().floor() == 2) {
 			stair.interact("Climb-down");
 			System.out.print("Going down stairs");
 			Condition.wait(new Callable<Boolean>() {
@@ -30,7 +30,7 @@ public class downstairs extends task {
 		}
 		GameObject stair2 = ctx.objects.select()
 				.id(constants.doorstair.stair2Ids).nearest().poll();
-		if (stair2.inViewport()) {
+		if (stair2.inViewport() && stair2.valid()) {
 			stair2.interact("Climb-down");
 			System.out.print("Going down Other stairs");
 			Condition.wait(new Callable<Boolean>() {
