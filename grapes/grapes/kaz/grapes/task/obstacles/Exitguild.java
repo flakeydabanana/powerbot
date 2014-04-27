@@ -1,4 +1,4 @@
-package kaz.grapes.task.bank;
+package kaz.grapes.task.obstacles;
 
 
 import kaz.grapes.constants.*;

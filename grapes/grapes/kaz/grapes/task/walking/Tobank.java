@@ -1,4 +1,4 @@
-package kaz.grapes.task.bank;
+package kaz.grapes.task.walking;
 
 
 import java.util.concurrent.Callable;

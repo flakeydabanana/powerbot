@@ -1,9 +1,11 @@
 package kaz.grapes;
 
 import kaz.grapes.task.*;
-import kaz.grapes.task.back.*;
-import kaz.grapes.task.bank.*;
+import kaz.grapes.task.banking.*;
+import kaz.grapes.task.obstacles.*;
+import kaz.grapes.task.walking.*;
 import kaz.grapes.constants.*;
+import kaz.grapes.task.looting.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -79,10 +81,10 @@ public class Main extends PollingScript<ClientContext> implements PaintListener 
 		g.drawString(time.gettime(getRuntime()), 60, 469);
 		g.drawString(" " + Prices.grapes, 72, 489);
 		g.drawString(" " + time.perHour(Prices.grapes, getRuntime()), 152, 521);
-		g.drawString(" " + (Prices.grapes * Prices.grapesgrice), 63, 545);
+		g.drawString(" " + (Prices.grapes * Prices.grapesprice), 63, 545);
 		g.drawString(
 				" "
-						+ ((time.perHour(Prices.grapes, getRuntime())) * Prices.GrapesPrice),
+						+ ((time.perHour(Prices.grapes, getRuntime())) * Prices.grapesprice),
 				115, 570);
 
 	}

@@ -1,4 +1,4 @@
-package kaz.grapes.task.back;
+package kaz.grapes.task.looting;
 
 import java.util.concurrent.Callable;
 import kaz.grapes.constants.Prices;

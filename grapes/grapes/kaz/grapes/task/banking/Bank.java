@@ -1,5 +1,5 @@
 
-package kaz.grapes.task.bank;
+package kaz.grapes.task.banking;
 import kaz.grapes.task.*;
 
 public class Bank extends Task {
