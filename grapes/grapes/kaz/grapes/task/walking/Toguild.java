@@ -1,6 +1,8 @@
 package kaz.grapes.task.walking;
 
 import java.util.concurrent.Callable;
+
+import kaz.grapes.constants.Doorstair;
 import kaz.grapes.constants.tiles;
 import org.powerbot.script.Condition;
 import org.powerbot.script.Tile;
@@ -14,7 +16,6 @@ public class Toguild extends Task {
 	@Override
 	public boolean activate() {
 		return ctx.backpack.count() == 0
-				&& !tiles.GUILD_AREA.contains(ctx.players.local())
 				&& ctx.players.local().tile().floor() == 0;
 	}
 
@@ -38,16 +39,22 @@ public class Toguild extends Task {
 
 			});
 		}
-		GameObject door = ctx.objects.select().id(Doorstair.DOORIDS)
+		GameObject door = ctx.objects.select().id(Doorstair.DOORIDS).nearest()
+				.poll();
+		GameObject stair = ctx.objects.select().id(Doorstair.STAIR3IDS)
 				.nearest().poll();
+		final Tile doortile = door.tile().derive(1, 1);
+		final Tile stairtile = stair.tile().derive(1, 1);
 
 		if ((door.inViewport() && door.valid())
-				&& !tiles.GUILD_AREA.contains(ctx.players.local())) {
+				&& ctx.movement.findPath(doortile).valid()
+				&& ctx.movement.findPath(stairtile).valid()) {
+
 			door.interact("open");
 			Condition.wait(new Callable<Boolean>() {
 				@Override
 				public Boolean call() throws Exception {
-					return tiles.GUILD_AREA.contains(ctx.players.local());
+					return ctx.movement.findPath(stairtile).valid();
 				}
 
 			});

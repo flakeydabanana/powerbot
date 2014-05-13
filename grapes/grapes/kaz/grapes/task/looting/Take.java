@@ -24,7 +24,6 @@ public class Take extends Task {
 
 			if (grapes.valid()) {
 				grapes.interact("Take");
-				ctx.camera.turnTo(grapes);
 				Condition.wait(new Callable<Boolean>() {
 					@Override
 					public Boolean call() throws Exception {
