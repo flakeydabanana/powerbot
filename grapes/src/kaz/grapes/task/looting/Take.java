@@ -20,7 +20,7 @@ public class Take extends Task<ClientContext> {
 
 	@Override
 	public void execute() {
-		final GroundItem grapes = ctx.groundItems.id(Prices.grape).poll();
+		final GroundItem grapes = ctx.groundItems.select().id(Prices.grape).poll();
 		if (ctx.movement.distance(grapes.tile(), ctx.players.local().tile()) < 2) {
 			int lootCount1 = ctx.backpack.select().id(Prices.grape).count();
 

@@ -18,7 +18,7 @@ public class Upstairs extends Task<ClientContext> {
 		GameObject stair = ctx.objects.select().id(Doorstair.STAIR3IDS)
 				.nearest().poll();
 		final Tile stairtile = stair.tile().derive(1, 1);
-		return ctx.backpack.count() == 0
+		return ctx.backpack.select().count() == 0
 				&& ctx.movement.findPath(stairtile).valid();
 
 	}

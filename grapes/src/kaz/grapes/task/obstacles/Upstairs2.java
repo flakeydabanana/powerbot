@@ -14,7 +14,7 @@ public class Upstairs2 extends Task<ClientContext> {
 	@Override
 	public boolean activate() {
 		return (ctx.players.local().tile().floor() == 1)
-				&& ctx.backpack.count() == 0;
+				&& ctx.backpack.select().count() == 0;
 	}
 
 	@Override

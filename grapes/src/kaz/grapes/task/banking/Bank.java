@@ -11,7 +11,7 @@ public class Bank extends Task<ClientContext> {
 	@Override
 	public boolean activate() {
 		return ctx.bank.present()
-				&& ctx.backpack.count() == 28;
+				&& ctx.backpack.select().count() == 28;
 
 	}
 
@@ -24,7 +24,7 @@ public class Bank extends Task<ClientContext> {
 				ctx.bank.depositInventory();
 			}
 		}
-		if (ctx.backpack.isEmpty()) {
+		if (ctx.backpack.select().isEmpty()) {
 			ctx.bank.close();
 		}
 	}

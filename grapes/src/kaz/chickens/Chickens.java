@@ -10,8 +10,8 @@ import org.powerbot.script.rt6.Npc;
 
 @Script.Manifest(name = "ChickenKiller", description = "Kills Chickens and loots feathers")
 public class Chickens extends PollingScript<ClientContext> {
-	int[] chickenIds = { 100 };
-	int[] featherIds = { 100 };
+	int[] chickenIds = { 100 }; // incorrect id
+	int[] featherIds = { 100 }; // incorrect id
 
 	public Npc GetChicken() {
 		return ctx.npcs.select().id(chickenIds).first().poll();
@@ -22,8 +22,7 @@ public class Chickens extends PollingScript<ClientContext> {
 	}
 
 	public void poll() {
-		return;
-	}
+	
 
 	{
 
@@ -54,11 +53,13 @@ public class Chickens extends PollingScript<ClientContext> {
 			GetFeather().interact("take", "feather");
 			Condition.wait(new Callable<Boolean>() {
 				public Boolean call() throws Exception {
-					return !ctx.groundItems.id(featherIds).first().poll()
+					return !ctx.groundItems.select().id(featherIds).first().poll()
 							.valid();
 				}
 			});
 		}
 
+	}
+	
 	}
 }

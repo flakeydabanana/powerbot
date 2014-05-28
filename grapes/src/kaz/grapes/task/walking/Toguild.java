@@ -16,7 +16,7 @@ public class Toguild extends Task<ClientContext> {
 	}
 	@Override
 	public boolean activate() {
-		return ctx.backpack.count() == 0
+		return ctx.backpack.select().count() == 0
 				&& ctx.players.local().tile().floor() == 0;
 	}
 
