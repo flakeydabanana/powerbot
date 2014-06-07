@@ -10,8 +10,8 @@ import org.powerbot.script.rt6.Npc;
 
 @Script.Manifest(name = "ChickenKiller", description = "Kills Chickens and loots feathers")
 public class Chickens extends PollingScript<ClientContext> {
-	int[] chickenIds = { 100 }; // incorrect id
-	int[] featherIds = { 100 }; // incorrect id
+	int[] chickenIds = { 41, 1017 }; // correct id
+	int[] featherIds = { 314 }; // incorrect id
 
 	public Npc GetChicken() {
 		return ctx.npcs.select().id(chickenIds).first().poll();
@@ -22,44 +22,48 @@ public class Chickens extends PollingScript<ClientContext> {
 	}
 
 	public void poll() {
-	
+		System.out.print("Starting loop");
 
-	{
+		{
 
-		if (!ctx.players.local().inCombat()) {
-			if (GetChicken().inViewport() && !GetFeather().valid()) {
-				GetChicken().interact("attack");
-			} else {
-				if (!GetFeather().valid())
-					ctx.movement.step(GetChicken());
+			if (!ctx.players.local().inCombat()) {
+				if (GetChicken().inViewport()) {
+					GetChicken().interact("attack");
+					System.out.print("Attacking");
+					Condition.wait(new Callable<Boolean>() {
+						public Boolean call() throws Exception {
+							System.out.print("Waiting for combat to be finished");
+							return !ctx.players.local().inCombat();
+						}
+					});
+				} else {
+					if (!GetFeather().valid() && !GetChicken().inViewport())
+						ctx.movement.step(GetChicken());
+					System.out.print("Moving to Chicken");
+					Condition.wait(new Callable<Boolean>() {
+						public Boolean call() throws Exception {
+							return (ctx.movement.distance(ctx.players.local()
+									.tile(), ctx.movement.destination().tile())) < 10;
+						}
+					});
+				}
+
+			}
+		}
+		{
+			if (GetFeather().valid() && !ctx.players.local().inCombat()) {
+				GetFeather().interact("take", "feather");
+				System.out.print("Taking feather");
 				Condition.wait(new Callable<Boolean>() {
 					public Boolean call() throws Exception {
-						return (ctx.movement.distance(ctx.players.local()
-								.tile(), ctx.movement.destination().tile())) < 10;
+						System.out.print("Waiting until feather is taken");
+						return !ctx.groundItems.id(featherIds).first().poll()
+								.valid();
 					}
 				});
 			}
 
-		} else {
-			Condition.wait(new Callable<Boolean>() {
-				public Boolean call() throws Exception {
-					return !ctx.npcs.id(chickenIds).first().poll().valid();
-				}
-			});
-		}
-	}
-	{
-		if (GetFeather().valid() && !ctx.players.local().inCombat()) {
-			GetFeather().interact("take", "feather");
-			Condition.wait(new Callable<Boolean>() {
-				public Boolean call() throws Exception {
-					return !ctx.groundItems.select().id(featherIds).first().poll()
-							.valid();
-				}
-			});
 		}
 
-	}
-	
 	}
 }

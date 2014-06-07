@@ -55,7 +55,7 @@ public class Main extends PollingScript<ClientContext> implements PaintListener 
 
 	public static class time {
 
-		public static String gettime(final long time) {
+		public static String getTime(final long time) {
 			final int sec = (int) (time / 1000), h = sec / 3600, m = sec / 60 % 60, s = sec % 60;
 			return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":"
 					+ (s < 10 ? "0" + s : s);
@@ -73,7 +73,7 @@ public class Main extends PollingScript<ClientContext> implements PaintListener 
 		g.drawImage(paintImage, 0, 450, null);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Tahoma", Font.BOLD, 16));
-		g.drawString(time.gettime(getRuntime()), 60, 469);
+		g.drawString(time.getTime(getRuntime()), 60, 469);
 		g.drawString(" " + Prices.grapes, 72, 489);
 		g.drawString(" " + time.perHour(Prices.grapes, getRuntime()), 152, 521);
 		g.drawString(" " + (Prices.grapes * Prices.grapesprice), 63, 545);
