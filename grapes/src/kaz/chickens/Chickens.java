@@ -11,7 +11,7 @@ import org.powerbot.script.rt6.Npc;
 @Script.Manifest(name = "ChickenKiller", description = "Kills Chickens and loots feathers")
 public class Chickens extends PollingScript<ClientContext> {
 	int[] chickenIds = { 41, 1017 }; // correct id
-	int[] featherIds = { 314 }; // incorrect id
+	int[] featherIds = { 314 }; // correct id
 
 	public Npc GetChicken() {
 		return ctx.npcs.select().id(chickenIds).first().poll();
@@ -32,7 +32,8 @@ public class Chickens extends PollingScript<ClientContext> {
 					System.out.print("Attacking");
 					Condition.wait(new Callable<Boolean>() {
 						public Boolean call() throws Exception {
-							System.out.print("Waiting for combat to be finished");
+							System.out
+									.print("Waiting for combat to be finished");
 							return !ctx.players.local().inCombat();
 						}
 					});
